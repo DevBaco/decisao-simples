@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import img from '../assets/ambiente-corporativo.jpg';
+import { FACTORS } from '../data';
+---
+<section class="section dark statement">
+  <div class="wrap">
+    <p class="big reveal">Sua decisão hoje impacta a <span class="hl">competitividade</span> do seu negócio amanhã.</p>
+    <ol class="pair">
+      <li class="reveal"><span class="tnum">01</span><p>Antes de tomar sua decisão, realize uma simulação dos impactos da Reforma Tributária.</p></li>
+      <li class="reveal"><span class="tnum">02</span><p>Planeje-se e não perca o prazo de escolha.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section surface">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Reforma Tributária</p>
+      <h2 class="h2">O que ninguém conta sobre a Reforma</h2>
+      <p class="lead">A Reforma Tributária muda as regras do jogo para empresas do Simples Nacional. Entender os impactos de cada alternativa é essencial para tomar a decisão no prazo certo.</p>
+    </div>
+    <div class="untold">
+      <article class="card-dark untold-main reveal">
+        <Image src={img} alt="Mesa de trabalho com calculadora e relatórios fiscais" widths={[480, 800]} sizes="(max-width: 860px) 100vw, 55vw" class="untold-img" />
+        <div class="untold-body">
+          <span class="icon-chip"><Icon name="coins" /></span>
+          <h3 class="h3 xl">O crédito pode impactar sua competitividade</h3>
+          <p>Nas operações entre empresas, o aproveitamento de créditos de IBS e CBS pode se tornar um fator relevante na negociação e na escolha dos fornecedores.</p>
+        </div>
+      </article>
+      <article class="card untold-side reveal">
+        <span class="icon-chip"><Icon name="scale" /></span>
+        <h3 class="h3">A decisão exige uma análise além da rotina fiscal</h3>
+        <p class="muted">A contabilidade continua essencial para a rotina fiscal. A avaliação dos impactos trazidos pela Reforma demanda uma análise específica e estratégica.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section surface-alt">
+  <div class="wrap">
+    <div class="head center reveal">
+      <p class="eyebrow">A partir de 2027</p>
+      <h2 class="h2">Duas formas de recolher o IBS e a CBS a partir de 2027</h2>
+      <p class="lead">A Reforma Tributária permite caminhos diferentes para empresas do Simples Nacional. Conhecer as alternativas é o primeiro passo para decidir com segurança.</p>
+    </div>
+    <div class="vs">
+      <article class="card opt reveal">
+        <p class="opt-k">Opção A</p>
+        <h3 class="h3 xl">Simples Nacional tradicional</h3>
+        <p class="opt-d"><Icon name="checkCircle" class="check" /> IBS e CBS recolhidos unificados dentro da guia do DAS.</p>
+      </article>
+      <span class="or" aria-hidden="true">ou</span>
+      <article class="card-dark opt reveal">
+        <p class="opt-k">Opção B</p>
+        <h3 class="h3 xl">Simples Híbrido <span class="hl">(Regime Regular)</span></h3>
+        <p class="opt-d"><Icon name="checkCircle" class="check" /> IBS e CBS apurados e recolhidos pelas regras do regime regular, mantendo os demais tributos no DAS.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap factors-wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Sem receita de bolo</p>
+      <h2 class="h2">A escolha depende de vários fatores do seu negócio</h2>
+      <p class="lead">Não existe uma receita de bolo. A escolha ideal depende da combinação de margem, perfil de clientes, custos e repasse de créditos. Mas não é somente matemática: requer esclarecimento e análise dos impactos legais e estratégicos do seu negócio, especificamente.</p>
+    </div>
+    <ul class="factors">
+      {FACTORS.map((f) => (
+        <li class="reveal"><span class="icon-chip"><Icon name={f.icon} /></span>{f.l}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .statement .big { max-width: 980px; font-size: clamp(1.9rem, 4.6vw, 3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: clamp(40px, 6vw, 64px); }
+  .pair li { display: flex; gap: 20px; padding-top: 24px; border-top: 1px solid var(--dark-line); }
+  .pair span { font-size: 15px; font-weight: 800; color: var(--green-hi); padding-top: 4px; }
+  .pair p { font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 500; line-height: 1.6; color: var(--on-dark-2); }
+
+  .untold { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+  .untold-main { padding: 0; display: flex; flex-direction: column; }
+  .untold-img { width: 100%; height: 260px; object-fit: cover; opacity: .75; }
+  .untold-body { padding: clamp(24px, 3vw, 40px); position: relative; z-index: 1; }
+  .untold-body .icon-chip, .untold-side .icon-chip { margin-bottom: 20px; }
+  .untold-body p { margin-top: 14px; font-size: 17px; line-height: 1.7; color: var(--on-dark-2); max-width: 520px; }
+  .untold-side { display: flex; flex-direction: column; justify-content: center; }
+  .untold-side p { margin-top: 12px; }
+  .xl { font-size: clamp(1.35rem, 2.4vw, 1.9rem); line-height: 1.2; }
+
+  .vs { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+  .opt { padding: clamp(28px, 4vw, 48px); }
+  .opt-k { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card-dark .opt-k { color: var(--green-hi); }
+  .opt-d { display: flex; gap: 12px; margin-top: 22px; font-size: 17px; font-weight: 500; line-height: 1.6; }
+  .card-dark .opt-d { color: var(--on-dark-2); position: relative; z-index: 1; }
+  .opt-d :global(.check) { margin-top: 2px; }
+  .or { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--green); color: oklch(14% 0.03 150); font-weight: 800; font-size: 15px; box-shadow: 0 0 0 8px var(--surface-alt); }
+
+  .factors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .factors li { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 28px; min-height: 150px; padding: 24px; background: var(--bg); font-weight: 700; font-size: 16.5px; line-height: 1.3; transition: background .25s; }
+  .factors li:hover { background: var(--surface); }
+  .factors li:hover .icon-chip { background: var(--green); color: oklch(14% 0.03 150); }
+  .factors .icon-chip { transition: background .25s, color .25s; }
+
+  @media (max-width: 860px) {
+    .pair, .untold, .vs { grid-template-columns: 1fr; }
+    .or { position: static; transform: none; margin: -12px auto; }
+    .factors { grid-template-columns: repeat(2, 1fr); }
+    .factors li { min-height: 132px; padding: 20px; }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Deadline from '../components/Deadline.astro';
+import Reform from '../components/Reform.astro';
+import Triagem from '../components/Triagem.astro';
+import Offer from '../components/Offer.astro';
+import Closing from '../components/Closing.astro';
+import LeadModal from '../components/LeadModal.astro';
+---
+<Base
+  title="Decisão Simples | Simples Nacional x Simples Híbrido · Palegio"
+  description="Prazo prorrogado até 30/10/2026. Diagnóstico Simples Nacional x Simples Híbrido em até 3 dias úteis, com plano de ação e análise do potencial de crédito de IBS e CBS."
+>
+  <Hero />
+  <main>
+    <Deadline />
+    <Reform />
+    <Triagem />
+    <Offer />
+  </main>
+  <Closing />
+  <LeadModal />
+  <script>import '../scripts/app';</script>
+</Base>

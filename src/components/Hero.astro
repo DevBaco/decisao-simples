@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/palegio-logo-branca.png';
+import bg from '../assets/ambiente-corporativo.jpg';
+import { HERO_ITEMS, STATS } from '../data';
+---
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <p><span class="dot" aria-hidden="true"></span> Prazo legal<span class="hide-sm"> prorrogado para</span>: <strong>30/10/2026</strong><span class="hide-sm"> · Adesões ao diagnóstico Palegio até <strong>28/10/2026</strong></span></p>
+    <p class="cd tnum" aria-label="Tempo restante para adesão">
+      <span class="hide-sm">Adesões encerram em</span>
+      <b data-cd="d">--</b>d <b data-cd="h">--</b>h <b data-cd="m">--</b>min
+    </p>
+  </div>
+</div>
+
+<header class="header" data-header>
+  <div class="wrap header-in">
+    <a href="#top" class="brand" aria-label="Palegio — início">
+      <Image src={logo} alt="Palegio" width={150} loading="eager" />
+      <span class="brand-tag">Reforma Tributária<br />e Simples Nacional</span>
+    </a>
+    <a href="#triagem" class="btn btn-sm">Fazer a triagem</a>
+  </div>
+</header>
+
+<section class="hero dark" id="top">
+  <Image src={bg} alt="" class="hero-bg" widths={[640, 1024]} sizes="100vw" loading="eager" fetchpriority="high" />
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="pill"><Icon name="calendar" size={15} /> Decisão para 2027 · Simples Nacional</p>
+      <h1 class="h1">Simples Nacional ou <span class="hl">Simples Híbrido</span>: qual escolha faz mais sentido para a sua empresa em 2027?</h1>
+      <p class="lead">A Receita Federal prorrogou o prazo legal de escolha até 30 de outubro. Você ganhou mais tempo para analisar os impactos no seu caixa e decidir com total segurança e precisão.</p>
+      <div class="hero-ctas">
+        <a href="#triagem" class="btn btn-lg">Descobrir se a empresa se enquadra <Icon name="arrow" /></a>
+        <a href="#preco" class="btn-ghost">Ver o que está incluído</a>
+      </div>
+      <p class="hero-note"><Icon name="shield" size={18} /> A partir de <strong>R$ 3.000</strong> via PIX, débito ou crédito em até 12x com juros.</p>
+    </div>
+
+    <aside class="hero-card" aria-labelledby="hero-card-t">
+      <p class="hero-card-k">O que a empresa recebe</p>
+      <p class="hero-card-t" id="hero-card-t">Diagnóstico Simples Nacional x Simples Híbrido em até 3 dias úteis</p>
+      <ol>
+        {HERO_ITEMS.map((it, i) => (
+          <li>
+            <span class="num tnum">{String(i + 1).padStart(2, '0')}</span>
+            <div><p class="t">{it.t}</p><p class="d">{it.d}</p></div>
+          </li>
+        ))}
+      </ol>
+    </aside>
+  </div>
+
+  <div class="wrap">
+    <ul class="stats">
+      {STATS.map((s) => (
+        <li><p class="v tnum">{s.v}</p><p class="l">{s.l}</p></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .topbar { background: var(--green); color: oklch(14% 0.03 150); font-size: 14px; }
+  .topbar-in { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 42px; }
+  .topbar p { display: flex; align-items: center; gap: 8px; }
+  .topbar .dot { background: oklch(14% 0.03 150); animation: none; }
+  .cd b { display: inline-block; min-width: 2ch; text-align: right; font-weight: 800; }
+  @media (max-width: 720px) { .hide-sm { display: none; } .topbar { font-size: 13px; } }
+
+  .header { position: sticky; top: 0; z-index: 40; background: oklch(12% 0.006 155 / 0.82); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid var(--dark-line); color: var(--on-dark); }
+  .header-in { display: flex; justify-content: space-between; align-items: center; gap: 16px; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 18px; text-decoration: none; }
+  .brand img { width: 128px; height: auto; }
+  .brand-tag { padding-left: 18px; border-left: 1px solid var(--dark-line); font-size: 12px; line-height: 1.35; font-weight: 600; color: var(--on-dark-3); }
+  .btn-sm { min-height: 44px; padding: 0 20px; font-size: 15px; }
+  @media (max-width: 560px) { .brand-tag { display: none; } .brand img { width: 112px; } }
+
+  .hero { position: relative; overflow: hidden; padding-block: clamp(56px, 9vw, 112px) clamp(40px, 6vw, 72px); isolation: isolate; }
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: .38; }
+  .hero::before { content: ''; position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(60% 70% at 85% 10%, oklch(64.3% 0.18 145 / 0.20), transparent 70%),
+      linear-gradient(90deg, var(--dark) 30%, oklch(12% 0.006 155 / 0.78) 70%, oklch(12% 0.006 155 / 0.6)),
+      linear-gradient(0deg, var(--dark), transparent 40%); }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero-copy .pill { margin-bottom: 24px; }
+  .hero .lead { margin-top: 24px; max-width: 560px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 22px; font-size: 15px; color: var(--on-dark-2); }
+  .hero-note :global(svg) { color: var(--green-hi); flex: none; }
+  .hero-note strong { color: var(--on-dark); }
+
+  .hero-card { background: oklch(100% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.12); border-radius: 22px; padding: clamp(24px, 3vw, 34px); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: var(--shadow-lg); }
+  .hero-card-k { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green-hi); }
+  .hero-card-t { margin-top: 10px; font-size: 20px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; }
+  .hero-card ol { margin-top: 22px; border-top: 1px solid var(--dark-line); }
+  .hero-card li { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--dark-line); }
+  .hero-card li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .num { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: oklch(64.3% 0.18 145 / 0.16); color: var(--green-hi); font-size: 14px; font-weight: 800; }
+  .hero-card .t { font-weight: 700; font-size: 16.5px; line-height: 1.3; }
+  .hero-card .d { margin-top: 4px; font-size: 14.5px; line-height: 1.55; color: var(--on-dark-3); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(48px, 7vw, 88px); border-top: 1px solid var(--dark-line); }
+  .stats li { padding: 28px 24px 0 0; }
+  .stats li + li { padding-left: 24px; border-left: 1px solid var(--dark-line); }
+  .stats .v { font-size: clamp(1.6rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  .stats .l { margin-top: 6px; font-size: 14.5px; color: var(--on-dark-3); }
+
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero::before { background: radial-gradient(80% 50% at 90% 0%, oklch(64.3% 0.18 145 / 0.2), transparent 70%), linear-gradient(0deg, var(--dark) 20%, oklch(12% 0.006 155 / 0.75)); }
+  }
+  @media (max-width: 600px) {
+    .hero-ctas .btn, .hero-ctas .btn-ghost { width: 100%; justify-content: center; }
+    .stats { grid-template-columns: 1fr; }
+    .stats li, .stats li + li { padding: 20px 0; border-left: 0; border-bottom: 1px solid var(--dark-line); display: flex; align-items: baseline; gap: 16px; }
+    .stats .v { min-width: 120px; }
+    .stats .l { margin: 0; }
+  }
+</style>

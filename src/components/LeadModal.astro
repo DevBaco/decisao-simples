@@ -1,0 +1,85 @@
+---
+import Icon from './Icon.astro';
+const REGIMES = ['Simples Nacional', 'Lucro Presumido', 'Lucro Real'];
+---
+<dialog id="lead-modal" class="dlg" aria-labelledby="lead-title">
+  <div class="dlg-top">
+    <p class="tnum"><span class="dot" aria-hidden="true"></span> Adesões até 28/10 · <b data-cd="d">--</b>d <b data-cd="h">--</b>h restantes</p>
+    <button type="button" class="x" aria-label="Fechar" data-close><Icon name="close" size={20} /></button>
+  </div>
+
+  <form id="lead-form" novalidate>
+    <h2 id="lead-title">Simples Nacional ou Simples Híbrido: descubra o que faz sentido para a sua empresa</h2>
+    <p class="sub">Deixe seus dados para seguir para a triagem. O prazo legal de escolha termina em 30/10/2026.</p>
+
+    <div class="fields">
+      <label class="f"><span>Nome</span><input name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" required /></label>
+      <label class="f"><span>E-mail</span><input name="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br" required /></label>
+      <label class="f"><span>Telefone (WhatsApp)</span><input name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required /></label>
+      <fieldset class="f">
+        <legend>Regime tributário da empresa</legend>
+        <div class="radios">
+          {REGIMES.map((r) => (
+            <label class="radio"><input type="radio" name="regime" value={r} /><span>{r}</span></label>
+          ))}
+        </div>
+      </fieldset>
+    </div>
+
+    <p class="err" id="lead-error" role="alert" hidden></p>
+    <button type="submit" class="btn btn-lg btn-block">Quero fazer a triagem <Icon name="arrow" /></button>
+    <p class="fine"><Icon name="shield" size={15} /> Seus dados são usados apenas para o contato da Palegio.</p>
+  </form>
+
+  <div id="lead-ok" class="ok" hidden>
+    <span class="ok-ic"><Icon name="check" size={30} /></span>
+    <h2>Obrigado<span id="lead-first"></span>.</h2>
+    <p class="sub">Recebemos seus dados. Agora responda às três perguntas da triagem e descubra se o diagnóstico faz sentido para a sua empresa.</p>
+    <a href="#triagem" class="btn btn-lg btn-block" data-close>Ir para a triagem <Icon name="arrow" /></a>
+  </div>
+</dialog>
+
+<style>
+  .dlg { width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 0; border-radius: 24px; background: var(--bg); color: var(--ink); box-shadow: var(--shadow-lg); overflow: auto; }
+  .dlg::backdrop { background: oklch(8% 0.01 155 / 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .dlg[open] { animation: pop .35s var(--ease); }
+  .dlg[open]::backdrop { animation: fade .3s ease; }
+  @keyframes pop { from { opacity: 0; transform: translateY(16px) scale(.98); } }
+  @keyframes fade { from { opacity: 0; } }
+
+  .dlg-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px 14px 28px; background: var(--dark); color: var(--on-dark-2); font-size: 13.5px; font-weight: 600; }
+  .dlg-top p { display: flex; align-items: center; gap: 8px; }
+  .dlg-top b { color: var(--on-dark); }
+  .x { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 12px; background: oklch(100% 0 0 / 0.08); color: var(--on-dark); cursor: pointer; }
+  .x:hover { background: oklch(100% 0 0 / 0.16); }
+
+  form, .ok { padding: 28px; }
+  h2 { font-size: clamp(1.35rem, 3vw, 1.6rem); font-weight: 800; line-height: 1.22; letter-spacing: -0.02em; }
+  .sub { margin-top: 10px; font-size: 15.5px; line-height: 1.6; color: var(--ink-2); }
+  .fields { display: grid; gap: 16px; margin: 24px 0 20px; }
+  .f { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+  .f > span, legend { padding: 0; font-size: 14px; font-weight: 700; }
+  legend { margin-bottom: 8px; }
+  input[type=text], input[type=email], input[type=tel] { width: 100%; height: 54px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--surface); font: inherit; font-size: 16px; color: var(--ink); transition: border-color .15s, background .15s, box-shadow .15s; }
+  input::placeholder { color: var(--ink-3); }
+  input:focus { outline: none; border-color: var(--green); background: var(--bg); box-shadow: 0 0 0 4px var(--green-soft); }
+  .radios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .radio { position: relative; cursor: pointer; }
+  .radio input { position: absolute; opacity: 0; pointer-events: none; }
+  .radio span { display: grid; place-items: center; min-height: 52px; padding: 8px; border: 1.5px solid var(--line); border-radius: 14px; text-align: center; font-size: 14.5px; font-weight: 700; line-height: 1.25; transition: border-color .15s, background .15s; }
+  .radio:hover span { border-color: var(--green); }
+  .radio input:checked + span { border-color: var(--green); background: var(--green-soft); color: var(--green-ink); }
+  .radio input:focus-visible + span { outline: 3px solid var(--green); outline-offset: 2px; }
+  .err { margin-bottom: 14px; padding: 12px 14px; border-radius: 12px; background: oklch(55% 0.2 27 / 0.08); color: var(--danger); font-size: 14.5px; font-weight: 600; }
+  .fine { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; font-size: 13px; color: var(--ink-3); text-align: center; }
+
+  .ok { text-align: center; }
+  .ok-ic { display: inline-grid; place-items: center; width: 64px; height: 64px; margin-bottom: 18px; border-radius: 50%; background: var(--green); color: oklch(14% 0.03 150); }
+  .ok .btn { margin-top: 24px; }
+
+  @media (max-width: 480px) {
+    .radios { grid-template-columns: 1fr; }
+    form, .ok { padding: 22px 18px; }
+    .dlg-top { padding-left: 18px; }
+  }
+</style>

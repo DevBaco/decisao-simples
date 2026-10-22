@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro';
+import { CALENDAR, CONTACT } from '../data';
+---
+<section class="section deadline" id="prazo">
+  <div class="wrap">
+    <div class="grid">
+      <div class="reveal">
+        <a class="pill" href={CONTACT.receita} target="_blank" rel="noopener">Resolução CGSN nº 194/2026 · Receita Federal <Icon name="external" size={14} /></a>
+        <h2 class="h2" style="margin-top:20px">O que muda com a prorrogação da Receita Federal?</h2>
+        <p class="lead">Por meio da Resolução CGSN nº 194/2026, o Comitê Gestor do Simples Nacional ajustou o calendário das opções para 2027, em conjunto com o Sebrae e o CFC. A lei estendeu até <strong>30 de outubro de 2026</strong> o prazo para definir o recolhimento do IBS e da CBS.</p>
+      </div>
+
+      <div class="count card reveal" aria-label="Contagem regressiva para adesão">
+        <p class="count-k"><Icon name="clock" size={18} /> Adesões encerram em</p>
+        <div class="count-row tnum">
+          <div><b data-cd="d">--</b><span>dias</span></div>
+          <i aria-hidden="true">:</i>
+          <div><b data-cd="h">--</b><span>horas</span></div>
+          <i aria-hidden="true">:</i>
+          <div><b data-cd="m">--</b><span>min</span></div>
+        </div>
+        <p class="count-f">Adesões ao diagnóstico Palegio até <strong>28/10/2026</strong>, 23h59 (Brasília).</p>
+      </div>
+    </div>
+
+    <ol class="timeline" aria-label="Calendário de opções para 2027 e prazo de adesão ao diagnóstico Palegio">
+      {CALENDAR.map((c) => (
+        <li class={`tl tl-${c.state} reveal`}>
+          <div class="tl-date tnum"><span>Até</span>{c.date}<small>/2026</small></div>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <p class="tl-tag">{c.tag}</p>
+          <h3 class="h3">{c.title}</h3>
+          <p class="muted tl-d">{c.d}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="note reveal">
+      <p>O prazo adicional trouxe tranquilidade, mas deixar para a última hora reduz a janela de planejamento operacional. O diagnóstico da Palegio é entregue em até 3 dias úteis após o recebimento e a validação da documentação completa, com o pagamento confirmado. <strong>Antecipe a contratação e o envio dos documentos</strong> para planejar sua decisão antes do prazo legal.</p>
+      <p class="src">Fonte: <a href={CONTACT.receita} target="_blank" rel="noopener">Receita Federal — novos prazos do Simples Nacional para 2027</a>. O prazo de adesão à Palegio é comercial, não um prazo definido pela Receita Federal.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: end; }
+  .count { border-color: oklch(64.3% 0.18 145 / 0.3); background: linear-gradient(180deg, oklch(64.3% 0.18 145 / 0.06), var(--bg)); }
+  .count-k { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--green-ink); }
+  .count-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; }
+  .count-row div { flex: 1; text-align: center; padding: 14px 6px; border-radius: 14px; background: var(--dark); color: var(--on-dark); }
+  .count-row b { display: block; font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .count-row span { display: block; margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--on-dark-3); }
+  .count-row i { font-style: normal; font-size: 28px; font-weight: 800; color: var(--ink-3); padding-top: 14px; }
+  .count-f { margin-top: 16px; font-size: 14.5px; color: var(--ink-2); }
+
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(56px, 7vw, 80px); }
+  .timeline::before { content: ''; position: absolute; left: 0; right: 0; top: 66px; height: 2px; background: linear-gradient(90deg, var(--line), var(--green) 50%, var(--line)); }
+  .tl { position: relative; padding-right: 8px; }
+  .tl-date { display: flex; align-items: baseline; gap: 6px; font-size: clamp(2rem, 3.6vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; height: 48px; }
+  .tl-date span { font-size: 14px; font-weight: 700; letter-spacing: 0; color: var(--ink-3); }
+  .tl-date small { font-size: 15px; font-weight: 700; letter-spacing: 0; color: var(--ink-3); }
+  .tl-dot { display: block; width: 18px; height: 18px; margin: 9px 0 22px; border-radius: 50%; background: var(--bg); border: 4px solid var(--line); position: relative; z-index: 1; }
+  .tl-tag { display: inline-block; margin-bottom: 10px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; background: var(--surface-alt); color: var(--ink-2); }
+  .tl-d { margin-top: 8px; font-size: 15.5px; }
+  .tl-past { opacity: .6; }
+  .tl-past .tl-date { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: var(--ink-3); }
+  .tl-now .tl-dot { border-color: var(--green); background: var(--green); box-shadow: 0 0 0 6px var(--green-soft); }
+  .tl-now .tl-tag { background: var(--green); color: oklch(14% 0.03 150); }
+  .tl-now .tl-date { color: var(--green-ink); }
+  .tl-legal .tl-dot { border-color: var(--ink); }
+  .tl-legal .tl-tag { background: var(--dark); color: var(--on-dark); }
+
+  .note { margin-top: clamp(48px, 6vw, 72px); padding: 28px 32px; border-radius: var(--radius); background: var(--surface); border-left: 4px solid var(--green); }
+  .note p { font-size: 16.5px; line-height: 1.75; color: var(--ink-2); }
+  .note strong { color: var(--ink); }
+  .note .src { margin-top: 14px; font-size: 14px; color: var(--ink-3); }
+  .note a { color: var(--green-ink); font-weight: 700; text-underline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr; gap: 0; padding-left: 36px; }
+    .timeline::before { left: 8px; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; background: linear-gradient(180deg, var(--line), var(--green) 50%, var(--line)); }
+    .tl { padding: 0 0 36px; }
+    .tl-dot { position: absolute; left: -36px; top: 14px; margin: 0; }
+    .tl-date { height: auto; margin-bottom: 14px; }
+    .note { padding: 22px; }
+  }
+</style>

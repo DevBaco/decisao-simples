@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+---
+<section class="section dark triagem" id="triagem">
+  <div class="wrap tri-grid">
+    <div class="reveal">
+      <p class="eyebrow">Triagem gratuita</p>
+      <h2 class="h2" style="margin-top:16px">O regime híbrido faz sentido para a empresa?</h2>
+      <p class="lead">Responda a três perguntas rápidas e descubra se o diagnóstico faz sentido para a sua empresa.</p>
+      <ul class="perks">
+        <li><Icon name="clock" size={20} /> Menos de 1 minuto</li>
+        <li><Icon name="doc" size={20} /> Nenhum documento solicitado nesta etapa</li>
+        <li><Icon name="checkCircle" size={20} /> Resultado na hora</li>
+      </ul>
+    </div>
+    <div class="tri-card reveal">
+      <div id="tri" aria-live="polite">
+        <noscript><p>Ative o JavaScript para responder à triagem ou <a href="#contato">fale pelo WhatsApp</a>.</p></noscript>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .triagem { position: relative; overflow: hidden; }
+  .triagem::before { content: ''; position: absolute; inset: -30% -10% auto auto; width: 60%; aspect-ratio: 1; background: radial-gradient(closest-side, oklch(64.3% 0.18 145 / 0.18), transparent); pointer-events: none; }
+  .tri-grid { position: relative; display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .perks { display: grid; gap: 14px; margin-top: 32px; }
+  .perks li { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--on-dark-2); }
+  .perks :global(svg) { color: var(--green-hi); flex: none; }
+  .tri-card { background: var(--bg); color: var(--ink); border-radius: 24px; padding: clamp(24px, 4vw, 44px); box-shadow: var(--shadow-lg); min-height: 440px; }
+  @media (max-width: 920px) { .tri-grid { grid-template-columns: 1fr; } .tri-card { min-height: 0; } }
+
+  /* Conteúdo renderizado pelo script */
+  #tri :global(.tri-top) { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  #tri :global(.tri-step) { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+  #tri :global(.tri-bar) { flex: 0 0 140px; height: 6px; border-radius: 6px; background: var(--surface-alt); overflow: hidden; }
+  #tri :global(.tri-bar i) { display: block; height: 100%; background: var(--green); border-radius: 6px; transition: width .4s var(--ease); }
+  #tri :global(.tri-q) { margin: 20px 0 24px; font-size: clamp(1.2rem, 2.2vw, 1.5rem); font-weight: 800; line-height: 1.3; letter-spacing: -0.015em; }
+  #tri :global(.tri-q:focus) { outline: none; }
+  #tri :global(.opts) { display: grid; gap: 10px; }
+  #tri :global(.opt) { display: grid; grid-template-columns: 26px 1fr; align-items: center; gap: 14px; width: 100%; min-height: 60px; padding: 14px 18px; text-align: left; border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg); cursor: pointer; font-size: 16px; font-weight: 600; line-height: 1.4; transition: border-color .15s, background .15s, transform .15s; }
+  #tri :global(.opt::before) { content: ''; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--line); transition: border-color .15s, box-shadow .15s; }
+  #tri :global(.opt:hover) { border-color: var(--green); background: oklch(64.3% 0.18 145 / 0.05); }
+  #tri :global(.opt:hover::before) { border-color: var(--green); box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 12px var(--green); }
+  #tri :global(.opt:active) { transform: scale(.99); }
+  #tri :global(.back) { margin-top: 16px; padding: 8px 4px; border: 0; background: none; cursor: pointer; font-weight: 700; color: var(--ink-2); }
+  #tri :global(.res-k) { display: inline-flex; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; background: var(--surface-alt); color: var(--ink-2); }
+  #tri :global(.res-k.fit) { background: var(--green); color: oklch(14% 0.03 150); }
+  #tri :global(.res-t) { margin-top: 18px; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
+  #tri :global(.res-d) { margin-top: 14px; font-size: 17px; line-height: 1.7; color: var(--ink-2); }
+  #tri :global(.res-ctas) { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+</style>
